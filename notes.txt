@@ -1,0 +1,21 @@
+Notes of the skeleton provided. 
+
+Provided:
+
+
+Implementations:
+1. libpath.c needs to be edited and implemented
+    - TODO:
+    - euclidian
+    - manhattan
+    - chessboard
+    - dfs
+    - bfs
+    - bestfirst
+    - astar
+
+2. libpqueue.c needs to be edited and implemented
+    - TODO:
+    - literally everything within the PQ
+
+3. 
