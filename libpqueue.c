@@ -10,7 +10,8 @@ pqueue_t*
 pqueue_new()
 {
     /** TODO: IMPLEMENT ME **/
-    return (NULL);
+    pqueue_t *pqueue;
+    return pqueue;
 }
 
 void

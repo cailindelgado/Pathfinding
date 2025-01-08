@@ -36,8 +36,12 @@ all : test_pqueue test_dmetric pathview pathtime gen_maze
 test_pqueue:
 	$(CC) $(LDFLAGS) -o $@ libutil.c liblist.c libpqueue.c test_pqueue.c 
 
+test_path: $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $(OBJ) test_path.c $(LDFLAGS)
+
 test_dmetric: $(OBJ)
 	$(CC) $(LDFLAGS) -o $@ $(OBJ) test_dmetric.c 
+
 pathtime: $(OBJ)
 	$(CC) -o $@ $(OBJ) pathtime.c $(LDFLAGS)
 

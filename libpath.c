@@ -3,25 +3,24 @@
 #include "libpqueue.h"
 #include "libbits.h"
 
+#include <math.h>
+
 float
 distance_euclidian(int x1,int y1,int x2,int y2)
 {
-    /** TODO: IMPLEMENT ME **/
-    return (0.0);
+    return sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
 }
 
 float
 distance_manhattan(int x1,int y1,int x2,int y2)
 {
-    /** TODO: IMPLEMENT ME **/
-    return (0.0);
+    return fabs((float) (x1 - x2)) + fabs((float) (y1 - y2));
 }
 
 float
 distance_chessboard(int x1,int y1,int x2,int y2)
 {
-    /** TODO: IMPLEMENT ME **/
-    return (0.0);
+    return fmax(fabs((float) x1 - x2), fabs((float) y1 - y2));
 }
 
 void
