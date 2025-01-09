@@ -8,19 +8,38 @@
 float
 distance_euclidian(int x1,int y1,int x2,int y2)
 {
-    return sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
+    return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
 }
 
 float
 distance_manhattan(int x1,int y1,int x2,int y2)
 {
-    return fabs((float) (x1 - x2)) + fabs((float) (y1 - y2));
+    return fabs((x1 - x2)) + fabs((y1 - y2));
 }
 
 float
 distance_chessboard(int x1,int y1,int x2,int y2)
 {
-    return fmax(fabs((float) x1 - x2), fabs((float) y1 - y2));
+    
+    int x;
+    int y;
+
+    x = x1 - x2;
+    y = y1 - y2;
+
+    if (x < 0) { 
+	    x = x * -1;
+    }
+    if (y < 0) { 
+	    y = y * -1; 
+    }
+
+    if (x > y) { 
+	    return x; 
+    } else {
+	    return y; 
+    }
+    
 }
 
 void
