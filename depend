@@ -1,0 +1,9 @@
+libutil.o: libutil.c libutil.h
+liblist.o: liblist.c liblist.h libutil.h
+libstack.o: libstack.c libstack.h libutil.h
+libpqueue.o: libpqueue.c libpqueue.h liblist.h libutil.h
+libgraph.o: libgraph.c libgraph.h libutil.h liblist.h libbits.h
+libbits.o: libbits.c libbits.h libutil.h
+libpath.o: libpath.c libpath.h libutil.h libgraph.h liblist.h libbits.h \
+ libstack.h libpqueue.h
+libdarray.o: libdarray.c libdarray.h libutil.h

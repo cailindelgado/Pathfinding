@@ -16,8 +16,8 @@
 # The name of the applications we're trying to generate
 TARGET = pathview pathtime
 
-SRC = libutil.c liblist.c libstack.c libpqueue.c libgraph.c libbits.c libpath.c
-HDR = libutil.h liblist.h libbits.h libgraph.h libstack.h libpqueue.h libpath.h
+SRC = libutil.c liblist.c libstack.c libpqueue.c libgraph.c libbits.c libpath.c libdarray.c
+HDR = libutil.h liblist.h libbits.h libgraph.h libstack.h libpqueue.h libpath.h libdarray.h
 
 # The following three lines can be used to automatically generate the SRC, HDR
 # and OBJ variables instead of doing it statically as above
@@ -28,10 +28,13 @@ OBJ := $(SRC:.c=.o)
 # and LDFLAGS for the "-lm" option if you are using the math library.
 CC = gcc
 #CFLAGS = -W -Wall -ansi -O3 -D_XOPEN_SOURCE=500
-CFLAGS = -W -Wall -ansi -g -O0 -D_XOPEN_SOURCE=500
+CFLAGS = -W -Wall -ansi -g -O0 -D_XOPEN_SOURCE=500 -std=c99
 LDFLAGS = -lm -lcurses
 
-all : test_pqueue test_dmetric pathview pathtime gen_maze
+all : test_pqueue test_dmetric pathview pathtime gen_maze test_darray
+
+test_darray:
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ libutil.c libdarray.c test_darray.c 
 
 test_pqueue:
 	$(CC) $(LDFLAGS) -o $@ libutil.c liblist.c libpqueue.c test_pqueue.c 

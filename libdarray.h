@@ -1,12 +1,5 @@
-/*** Utility Types ***/
-
 #ifndef _LIBDARRAY_H_
 #define _LIBDARRAY_H_
-
-#ifdef __cplusplus
-extern "C" {
-#endif /** cplusplus **/
-
 
 # include "libutil.h"
 
@@ -45,10 +38,5 @@ size_t get_size(darray *arr);
 
 /* return the current capacity of the array */
 size_t get_capacity(darray *arr);
-
-
-#ifdef __cplusplus
-}
-#endif /** cpluplus **/
 
 #endif /** _LIBDARRAY_H_ **/
