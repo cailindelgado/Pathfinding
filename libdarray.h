@@ -11,7 +11,7 @@ extern "C" {
 # include "libutil.h"
 
 typedef struct {
-  void** array;
+  void* array;
   size_t size;
   size_t capacity;
 } darray;
@@ -26,16 +26,10 @@ void delete_darray(darray *da);
 void resize(darray *da);
 
 /* check if the array is full */
-size_t is_full();
+int is_full(darray *da);
 
 /* check if the array is empty */
-size_t is_empty();
-
-/* return the current number of elements in the array */
-size_t get_size(darray *da);
-
-/* return the current capacity of the array */
-size_t get_capacity(darray *da);
+int is_empty(darray *da);
 
 /* add an element to the back of the array */
 void append(darray *da, int elem);
