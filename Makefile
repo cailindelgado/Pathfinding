@@ -28,10 +28,13 @@ OBJ := $(SRC:.c=.o)
 # and LDFLAGS for the "-lm" option if you are using the math library.
 CC = gcc
 #CFLAGS = -W -Wall -ansi -O3 -D_XOPEN_SOURCE=500
-CFLAGS = -W -Wall -ansi -g -O0 -D_XOPEN_SOURCE=500
+CFLAGS = -W -Wall -ansi -std=c99 -g -O0 -D_XOPEN_SOURCE=500
 LDFLAGS = -lm -lcurses
 
 all : test_pqueue test_dmetric pathview pathtime gen_maze
+
+test_darray:
+	$(CC) $(CFLAGS) -o $@ libutil.c libdarray.c test_darray.c
 
 test_pqueue:
 	$(CC) $(LDFLAGS) -o $@ libutil.c liblist.c libpqueue.c test_pqueue.c 
@@ -68,5 +71,5 @@ depend : $(SRC) $(HDR)
 
 clean :
 	-rm -f depend
-	-rm -f $(TARGET) gen_maze $(OBJ) test_dmetric test_pqueue
+	-rm -f $(TARGET) gen_maze $(OBJ) test_dmetric test_pqueue test_darray
 	-rm -f *~ 

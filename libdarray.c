@@ -3,6 +3,10 @@
 
 darray *create_darray(size_t initialCapacity) {
 
+    if (initialCapacity <= 0) {
+        initialCapacity = 16;
+    }
+
     darray *da = (darray *) malloc(sizeof(darray));
     if (da == NULL)
         return NULL;
@@ -24,26 +28,32 @@ darray *create_darray(size_t initialCapacity) {
 
 void delete_darray(darray *da) {
     
+    if (da == NULL) {
+        return;
+    }
+
     free(da -> array);
     free(da);
 
     return;
 }
 
-/* TODO: implement or I just have a fancy list */
 /* resize the array when full */
 void resize(darray *da) {
     // create a new array
     // double the capacity
-    //
-}
 
-/* check if the array is full */
-int is_full(darray *da) {
-    if (da->capacity == da->size) {
-        return 1;
-    } 
-    return 0;
+    size_t new_capacity;
+    new_capacity = da->capacity * 2;
+
+    void *temp = realloc(da->array, new_capacity * sizeof(int));
+
+    if (temp == NULL) {
+        return;
+    }
+
+    da->array = temp;
+    da->capacity = new_capacity;
 }
 
 /* check if the array is empty */
@@ -56,7 +66,7 @@ int is_empty(darray *da) {
 
 /* add an element to the back of the array */
 void append(darray *da, int elem) {
-    if (is_full(da)) {
+    if (da->size == da->capacity) {
         resize(da);
     }
 
@@ -71,30 +81,49 @@ void remove_element(darray *da, int elem) {
     size_t idx;
     found = 0;
 
-    for (size_t i = da->size; i < da->capacity; i++) {
-        if (da->array[i] == elem) {
+    for (size_t i = 0; i < da->size; i++) {
+        if (((int *) da -> array)[i] == elem) {
             idx = i;
             found = 1;
             break;
         }
     }
 
-    int b1;
-    int b2;
-
     if (found) {
-        for (size_t i = idx + 1; i < da->capacity; i++) {
-            b1 = da->array[i + 1];
-            b2 = da->array[i];
+        for (size_t i = idx; i < da->size; i++) {
+            // put i + 1 at i
+            ((int *) da->array)[i + 1] = ((int *) da->array)[i];
 
-            /* swap the two variables */
-            b1 = b1 ^ b2;
-            b2 = b1 ^ b2;
-            b1 = b1 ^ b2;
+            //TODO: try to overwrite the null terminator in a string
         }
     }
+
+    da->size -= 1;
 }
 
-/* remove the element from the given index returns NULL if not found */
-void *remove_at(darray *da, size_t idx);
+/* remove the element from the given index returns NULL if not found FREE OUT VARIABLE*/
+void *remove_at(darray *da, size_t idx) {
 
+    if (idx > da->size) { // size_t cannot be negative
+        return NULL;
+    }
+
+    /* This wil not work, as out is a local variable and its mem will be removed when outside of func */
+    int out;
+    out = ((int *) da->array)[idx];
+
+    size_t i;
+    for (i = idx; i < da->size; i++) {
+        ((int *) da->array)[i + 1] = ((int *) da->array)[i];
+    }
+
+    int *removed = (int *) malloc(sizeof(int));
+
+    if (removed == NULL) {
+        return NULL;
+    }
+
+    *removed = out;
+
+    return removed;
+}
