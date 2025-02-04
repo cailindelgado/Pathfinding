@@ -25,9 +25,6 @@ void delete_darray(darray *da);
 /* resize the array when full */
 void resize(darray *da);
 
-/* check if the array is full */
-int is_full(darray *da);
-
 /* check if the array is empty */
 int is_empty(darray *da);
 

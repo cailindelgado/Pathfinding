@@ -27,7 +27,7 @@ darray *create_darray(size_t initialCapacity) {
 
 
 void delete_darray(darray *da) {
-    
+
     if (da == NULL) {
         return;
     }
@@ -91,10 +91,8 @@ void remove_element(darray *da, int elem) {
 
     if (found) {
         for (size_t i = idx; i < da->size; i++) {
-            // put i + 1 at i
-            ((int *) da->array)[i + 1] = ((int *) da->array)[i];
+            ((int *) da->array)[i] = ((int *) da->array)[i + 1]; // put i + 1 at i
 
-            //TODO: try to overwrite the null terminator in a string
         }
     }
 
@@ -104,7 +102,7 @@ void remove_element(darray *da, int elem) {
 /* remove the element from the given index returns NULL if not found FREE OUT VARIABLE*/
 void *remove_at(darray *da, size_t idx) {
 
-    if (idx > da->size) { // size_t cannot be negative
+    if (idx >= da->size) { // size_t cannot be negative
         return NULL;
     }
 
@@ -114,7 +112,7 @@ void *remove_at(darray *da, size_t idx) {
 
     size_t i;
     for (i = idx; i < da->size; i++) {
-        ((int *) da->array)[i + 1] = ((int *) da->array)[i];
+        ((int *) da->array)[i] = ((int *) da->array)[i + 1];
     }
 
     int *removed = (int *) malloc(sizeof(int));
@@ -123,6 +121,7 @@ void *remove_at(darray *da, size_t idx) {
         return NULL;
     }
 
+    da->size -= 1;
     *removed = out;
 
     return removed;
