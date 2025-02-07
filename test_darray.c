@@ -1,5 +1,7 @@
 #include "assert.h"
 #include "libdarray.h"
+#include "stdlib.h"
+#include "time.h"
 
 static void test_create();
 static void test_delete_array();
@@ -8,6 +10,7 @@ static void test_full_empty();
 static void test_append();
 static void test_remove_element();
 static void test_remove_at();
+static void test_insert_resize_remove_middle();
 
 static void test_create(void) {
     printf("Testing create_darray..... ");
@@ -156,6 +159,48 @@ static void test_remove_at() {
     printf("SUCCESSFUL\n");
 }
 
+static void test_insert_resize_remove_middle() {
+    printf("Testing inserting tons of numbers and removing some... ");
+
+    time_t start, end;
+    size_t BIG_NUM;
+    BIG_NUM = 10000000;
+
+    start = time(NULL);
+    darray *da = create_darray(23);
+
+    /* NOTE: This line is problem child, there is a stack overflow because BIG_NUM exceeds stack size limit
+    int against[BIG_NUM]; // NOTE: doesnt have the same functionality as implemented da
+    */
+
+    // allocating memory on the heap in order to not exceed stack size limit
+    int *against = malloc(BIG_NUM * sizeof(int));
+    if (against == NULL) {
+        printf("Mem allocation for against failed\n");
+        return;
+    }
+
+    int x;
+    size_t i;
+    for (i = 0; i < BIG_NUM; i++) {
+        x = rand() % 100 + 1;
+
+        append(da, x);
+        against[i] = x;
+    }
+
+    assert(da->size == BIG_NUM);
+    assert(((int *)da->array)[da->size - 1] == against[da->size - 1]);
+
+    for (i = 0; i < BIG_NUM; i++) {
+        assert(((int *) da->array)[i] == against[i]);
+    }
+
+    end = time(NULL);
+
+    printf("SUCCESSFUL: in %lds\n", end - start);
+}
+
 
 int main() {
     /* tests */
@@ -168,6 +213,7 @@ int main() {
     test_append();
     test_remove_element();
     test_remove_at();
+    test_insert_resize_remove_middle();
 
     printf("TESTS COMPLETE FOR DYNAMIC ARRAY\n");
 }

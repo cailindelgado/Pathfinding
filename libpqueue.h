@@ -3,11 +3,13 @@
 #ifndef LIBPQUEUE_H
 #define LIBPQUEUE_H
 
-#include "liblist.h"
+// #include "liblist.h"
+#include "libdarray.h"
 
 typedef struct pqueue_t 
 {
-    dlist_t* dl;
+    // dlist_t* dl;
+    darray* da;
 } pqueue_t;
 
 pqueue_t* pqueue_new();
